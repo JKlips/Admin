@@ -75,22 +75,21 @@ chmod +x /usr/local/bin/auto-login-rdp.sh
 ```
 ```
 [Unit]
-Description=Lock and unlock GNOME session once after boot
+Description=Run auto-login-rdp once after boot
 
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/auto-login-rdp.sh
 ```
-```
 /etc/systemd/system/auto-login-rdp.timer
 ```
 ```
 [Unit]
-Description=Run auto-login-rdp once after boot
+Description=Run auto-login-rdp timer once after boot
 
 [Timer]
-OnBootSec=90s
-AccuracySec=5s
+OnBootSec=5s
+AccuracySec=1s
 Unit=auto-login-rdp.service
 Persistent=false
 
@@ -99,6 +98,6 @@ WantedBy=timers.target
 ```
 ```
 sudo systemctl daemon-reload
-
-sudo systemctl enable auto-login-rdp.timer
+sudo systemctl reset-failed auto-login-rdp.service auto-login-rdp.timer
+sudo systemctl enable --now auto-login-rdp.timer
 ```
