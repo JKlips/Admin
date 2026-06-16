@@ -4,12 +4,12 @@ nano ~/.config/systemd/user/rdp-kick-after-login.service
 ```
 ```
 [Unit]
-Description=Lock and unlock session once after login
+Description=Lock and unlock GNOME session once after boot
 After=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -lc 'sleep 20; loginctl lock-sessions; sleep 5; loginctl unlock-sessions'
+ExecStart=/bin/bash -lc 'FLAG="$XDG_RUNTIME_DIR/rdp-lock-unlock-done"; [ -f "$FLAG" ] && exit 0; touch "$FLAG"; sleep 5; loginctl lock-sessions; sleep 5; loginctl unlock-sessions'
 
 [Install]
 WantedBy=default.target
