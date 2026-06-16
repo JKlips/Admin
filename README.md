@@ -12,7 +12,7 @@ ydotool
 TARGET_USER="user"
 PASSWORD="111111"
 
-echo "Waiting for session of $TARGET_USER..."
+echo "Waiting for GNOME session of $TARGET_USER..."
 
 for i in {1..60}; do
     SESSION_ID=$(loginctl list-sessions --no-legend | awk -v user="$TARGET_USER" '$3 == user {print $1; exit}')
@@ -20,15 +20,14 @@ for i in {1..60}; do
     if [ -n "$SESSION_ID" ]; then
         echo "Found session: $SESSION_ID"
 
-        sleep 20
+        sleep 3
 
         echo "Locking session..."
         loginctl lock-session "$SESSION_ID"
 
-        sleep 5
+        sleep 3
 
-        echo "Typing password..."
-
+        echo "Starting ydotool..."
         modprobe uinput || true
 
         SOCKET="/tmp/.ydotool_socket_auto_rdp"
@@ -41,15 +40,17 @@ for i in {1..60}; do
 
         export YDOTOOL_SOCKET="$SOCKET"
 
-        # Разбудить экран / открыть поле пароля
+        echo "Wake lock screen..."
         ydotool key 28:1 28:0
+
         sleep 1
 
-        # Ввести пароль
+        echo "Typing password..."
         ydotool type "$PASSWORD"
+
         sleep 1
 
-        # Нажать Enter
+        echo "Press Enter..."
         ydotool key 28:1 28:0
 
         sleep 2
