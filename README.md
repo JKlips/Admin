@@ -67,12 +67,15 @@ done
 echo "Session not found"
 exit 1
 ```
+
 ```
 chmod +x /usr/local/bin/auto-login-rdp.sh
 ```
+
 ```
 /etc/systemd/system/auto-login-rdp.service
 ```
+
 ```
 [Unit]
 Description=Run auto-login-rdp once after boot
@@ -81,8 +84,13 @@ Description=Run auto-login-rdp once after boot
 Type=oneshot
 ExecStart=/usr/local/bin/auto-login-rdp.sh
 ```
+
+
+```
 /etc/systemd/system/auto-login-rdp.timer
 ```
+
+
 ```
 [Unit]
 Description=Run auto-login-rdp timer once after boot
@@ -96,6 +104,7 @@ Persistent=false
 [Install]
 WantedBy=timers.target
 ```
+
 ```
 sudo systemctl daemon-reload
 sudo systemctl reset-failed auto-login-rdp.service auto-login-rdp.timer
