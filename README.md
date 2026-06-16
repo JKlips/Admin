@@ -74,16 +74,16 @@ chmod +x /usr/local/bin/auto-login-rdp.sh
 ```
 ```
 [Unit]
-Description=Lock and unlock GNOME session once after boot
-After=graphical.target gdm.service
-Wants=graphical.target
+Description=Run auto-login-rdp once after boot
 
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/auto-login-rdp.sh
+[Timer]
+OnBootSec=10s
+AccuracySec=1s
+Unit=auto-login-rdp.service
+Persistent=false
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=timers.target
 ```
 ```
 systemctl daemon-reload
