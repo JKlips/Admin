@@ -69,7 +69,8 @@ exit 1
 ```
 
 ```
-chmod +x /usr/local/bin/auto-login-rdp.sh
+sudo chmod 755 /usr/local/bin/auto-login-rdp.sh
+sudo chown root:root /usr/local/bin/auto-login-rdp.sh
 ```
 
 ```
