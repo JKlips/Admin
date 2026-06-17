@@ -105,7 +105,9 @@ Persistent=false
 [Install]
 WantedBy=timers.target
 ```
-
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=HDMI-A-1:1920x1080@60e drm_kms_helper.edid_firmware=HDMI-A-1:edid/1920x1080.bin"
+```
 ```
 sudo systemctl daemon-reload
 sudo systemctl reset-failed auto-login-rdp.service auto-login-rdp.timer
